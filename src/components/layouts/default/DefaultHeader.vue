@@ -1,11 +1,19 @@
 <script setup lang="ts">
-import IconRedberry from '@/components/icons/IconRedberry.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import BaseModal from '@/components/ui/BaseModal.vue'
+import IconRedberry from '@/components/icons/IconRedberry.vue'
+
+import useModal from '@/composables/useModal'
+
+const { isModalActive, openModal, closeModal } = useModal()
 </script>
 
 <template>
   <div class="h-20 flex justify-between items-center px-[4.75rem]">
     <IconRedberry />
-    <BaseButton variant="primary">შესვლა</BaseButton>
+    <BaseButton variant="secondary" @click="openModal">შესვლა</BaseButton>
+    <BaseModal :isModalActive="isModalActive" @close-modal="closeModal">
+      <h3 class="text-2xl font-bold text-primary">შესვლა</h3>
+    </BaseModal>
   </div>
 </template>
