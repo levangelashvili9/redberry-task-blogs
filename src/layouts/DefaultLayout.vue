@@ -1,4 +1,8 @@
+<script setup lang="ts">
+import DefaultHeader from '@/components/layouts/default/DefaultHeader.vue'
+</script>
+
 <template>
-  <h1>Default Layout</h1>
+  <DefaultHeader />
   <RouterView />
 </template>

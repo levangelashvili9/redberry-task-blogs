@@ -1,4 +1,8 @@
+<script setup lang="ts">
+import FormHeader from '@/components/layouts/form/FormHeader.vue'
+</script>
+
 <template>
-  <h1>Form Layout</h1>
+  <FormHeader />
   <RouterView />
 </template>
