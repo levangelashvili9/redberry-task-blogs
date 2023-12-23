@@ -1,7 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import HomeHero from '@/components/home/HomeHero.vue'
+</script>
 
 <template>
-  <main>
-    <h2 class="text-lg">Bye world</h2>
+  <main class="bg-[#F3F2FA] min-h-screen pt-16">
+    <HomeHero />
   </main>
 </template>
