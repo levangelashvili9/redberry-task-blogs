@@ -15,7 +15,7 @@ defineEmits(['close-modal'])
     <div
       v-if="isModalActive"
       @click="$emit('close-modal')"
-      class="fixed bg-black/75 h-screen w-full top-0 left-0 flex justify-center items-center"
+      class="fixed bg-black/30 h-screen w-full top-0 left-0 flex justify-center items-center"
     >
       <div
         class="bg-white w-[30rem] px-6 py-10 flex flex-col items-center gap-6 relative"
