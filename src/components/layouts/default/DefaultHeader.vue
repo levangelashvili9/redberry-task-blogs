@@ -4,6 +4,7 @@ import BaseModal from '@/components/ui/BaseModal.vue'
 import IconRedberry from '@/components/icons/IconRedberry.vue'
 
 import useModal from '@/composables/useModal'
+import LoginForm from '@/components/shared/LoginForm.vue'
 
 const { isModalActive, openModal, closeModal } = useModal()
 </script>
@@ -14,6 +15,7 @@ const { isModalActive, openModal, closeModal } = useModal()
     <BaseButton variant="secondary" @click="openModal">შესვლა</BaseButton>
     <BaseModal :isModalActive="isModalActive" @close-modal="closeModal">
       <h3 class="text-2xl font-bold text-primary">შესვლა</h3>
+      <LoginForm />
     </BaseModal>
   </div>
 </template>
