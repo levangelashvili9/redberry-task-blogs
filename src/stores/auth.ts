@@ -13,5 +13,6 @@ export const useAuthStore = defineStore({
         this.isLoggedIn = true
       }
     }
-  }
+  },
+  persist: true
 })
