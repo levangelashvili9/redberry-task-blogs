@@ -8,6 +8,7 @@ import IconRedberry from '@/components/icons/IconRedberry.vue'
 
 import useModal from '@/composables/useModal'
 import LoginForm from '@/components/shared/LoginForm.vue'
+import SuccessDialog from '@/components/shared/SuccessDialog.vue'
 
 const { isModalActive, openModal, closeModal } = useModal()
 const authStore = useAuthStore()
@@ -26,8 +27,8 @@ const navigateToForm = () => {
     >
     <BaseButton v-else variant="secondary" @click="openModal">შესვლა</BaseButton>
     <BaseModal :isModalActive="isModalActive" @close-modal="closeModal">
-      <h3 class="text-2xl font-bold text-primary">შესვლა</h3>
-      <LoginForm />
+      <LoginForm v-if="!authStore.isLoggedIn" />
+      <SuccessDialog v-else />
     </BaseModal>
   </div>
 </template>
