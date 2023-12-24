@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BaseButton from '@/components/ui/BaseButton.vue'
+// import BaseButton from '@/components/ui/BaseButton.vue'
 import IconCross from '@/components/icons/IconCross.vue'
 
 type IProps = {
@@ -23,7 +23,7 @@ defineEmits(['close-modal'])
       >
         <IconCross class="absolute top-5 right-5 cursor-pointer" @click="$emit('close-modal')" />
         <slot />
-        <BaseButton variant="primary">შესვლა</BaseButton>
+        <!-- <BaseButton variant="primary">შესვლა</BaseButton> -->
       </div>
     </div>
   </teleport>
