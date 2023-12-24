@@ -8,6 +8,7 @@ type IBlogForm = {
   author: string
   title: string
   description: string
+  publish_date: string
 }
 
 const { handleSubmit, defineField } = useForm<IBlogForm>({
@@ -26,7 +27,8 @@ const { handleSubmit, defineField } = useForm<IBlogForm>({
           }
         ),
       title: z.string().min(2, { message: 'მინიმუმ 2 სიმბოლო' }),
-      description: z.string().min(2, { message: 'მინიმუმ 2 სიმბოლო' })
+      description: z.string().min(2, { message: 'მინიმუმ 2 სიმბოლო' }),
+      publish_date: z.string()
     })
   )
 })
@@ -34,6 +36,7 @@ const { handleSubmit, defineField } = useForm<IBlogForm>({
 const [author, authorAttrs] = defineField('author')
 const [title, titleAttrs] = defineField('title')
 const [description, descriptionAttrs] = defineField('description')
+const [publishDate, publishDateAttrs] = defineField('publish_date')
 
 const onSubmit = handleSubmit((values) => {
   console.log(values)
@@ -91,19 +94,19 @@ const onSubmit = handleSubmit((values) => {
       </div>
       <div class="grid grid-cols-2 gap-6">
         <div>
-          <label for="author" class="text-primary font-medium text-sm"
+          <label for="publish_date" class="text-primary font-medium text-sm"
             >გამოქვეყნების თარიღი *</label
           >
           <input
-            v-model="author"
-            v-bind="authorAttrs"
-            name="author"
-            id="author"
-            placeholder="შეიყვანეთ ავტორი"
+            v-model="publishDate"
+            v-bind="publishDateAttrs"
+            name="publish_date"
+            id="publish_date"
+            type="date"
             class="w-full h-11 px-[1rem] border border-border-inactive rounded-xl mt-[0.375rem] mb-2"
           />
         </div>
-        <div>
+        <!-- <div>
           <label for="title" class="text-primary font-medium text-sm">კატეგორია *</label>
           <input
             v-model="title"
@@ -113,7 +116,7 @@ const onSubmit = handleSubmit((values) => {
             placeholder="შეიყვანეთ სათაური"
             class="w-full h-11 px-[1rem] py-3 border border-border-inactive rounded-xl mt-[0.375rem] mb-2"
           />
-        </div>
+        </div> -->
       </div>
     </div>
     <BaseButton variant="primary">Submit</BaseButton>
