@@ -25,8 +25,8 @@ const { handleSubmit, defineField } = useForm<IBlogForm>({
             message: 'მინიმუმ 2 სიტყვა'
           }
         ),
-      title: z.string().min(2),
-      description: z.string().min(2)
+      title: z.string().min(2, { message: 'მინიმუმ 2 სიმბოლო' }),
+      description: z.string().min(2, { message: 'მინიმუმ 2 სიმბოლო' })
     })
   )
 })
