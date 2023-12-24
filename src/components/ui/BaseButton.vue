@@ -16,7 +16,7 @@ const buttonClass = computed(() => {
       variants: {
         variant: {
           primary: ' w-full',
-          secondary: 'w-20'
+          secondary: 'px-5'
         },
         disabled: {
           true: '!bg-gray-100 !text-gray-400 cursor-not-allowed'
