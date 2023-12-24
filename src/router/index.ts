@@ -3,6 +3,7 @@ import HomeView from '@/views/HomeView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import FormLayout from '@/layouts/FormLayout.vue'
+import CreateBlogView from '@/views/CreateBlogView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,9 +21,16 @@ const router = createRouter({
       ]
     },
     {
-      path: '/createBlog',
+      path: '/form',
       name: 'formLayout',
-      component: FormLayout
+      component: FormLayout,
+      children: [
+        {
+          path: '/form/createBlog',
+          name: 'createBlog',
+          component: CreateBlogView
+        }
+      ]
     },
     {
       path: '/:notFound(.*)*',
