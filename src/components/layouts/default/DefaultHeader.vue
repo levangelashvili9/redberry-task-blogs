@@ -28,7 +28,7 @@ const navigateToForm = () => {
     <BaseButton v-else variant="secondary" @click="openModal">შესვლა</BaseButton>
     <BaseModal :isModalActive="isModalActive" @close-modal="closeModal">
       <LoginForm v-if="!authStore.isLoggedIn" />
-      <SuccessDialog v-else />
+      <SuccessDialog v-else buttonMessage="კარგი" @close-modal="closeModal" />
     </BaseModal>
   </div>
 </template>
