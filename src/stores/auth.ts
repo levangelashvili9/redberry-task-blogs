@@ -8,9 +8,12 @@ export const useAuthStore = defineStore({
   }),
   actions: {
     async getUser(payload: { email: string }) {
-      const res = await axiosInstance.post(`/login`, payload)
-      if (res.status === 204) {
+      try {
+        await axiosInstance.post(`/login`, payload)
         this.isLoggedIn = true
+        return true
+      } catch (err) {
+        return
       }
     }
   },
