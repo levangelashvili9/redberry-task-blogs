@@ -1,29 +1,23 @@
 import { defineStore } from 'pinia'
 import axiosInstance from '@/plugins/axios'
-import type { ICategories } from '@/composables/useFetchCategories'
 import { useFiltersStore } from './filters'
+import type { IBlog } from '@/types'
 
 type State = {
-  blogs: {
-    id: number
-    title: string
-    description: string
-    image: string
-    publish_date: string
-    categories: ICategories
-    author: string
-  }[]
+  blogsList: IBlog[]
+  blog: IBlog | undefined
 }
 
 export const useBlogStore = defineStore({
   id: 'blog',
   state: (): State => ({
-    blogs: []
+    blogsList: [],
+    blog: undefined
   }),
   getters: {
     getBlogs(state) {
       const filtersStore = useFiltersStore()
-      return state.blogs.filter((blog) =>
+      return state.blogsList.filter((blog) =>
         filtersStore.filters.every((filter) =>
           blog.categories.some((category) => category.title === filter)
         )
@@ -34,7 +28,15 @@ export const useBlogStore = defineStore({
     async fetchBlogs() {
       try {
         const res = await axiosInstance.get(`/blogs`)
-        this.blogs = res.data.data
+        this.blogsList = res.data.data
+      } catch (err) {
+        return
+      }
+    },
+    async fetchSingleBlog(payload: string | string[]) {
+      try {
+        const res = await axiosInstance.get(`/blogs/${payload}`)
+        this.blog = res.data
       } catch (err) {
         return
       }
