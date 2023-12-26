@@ -1,30 +1,27 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
 import { useBlogStore } from '@/stores/blog'
-import IconArrowUpRight from '../icons/IconArrowUpRight.vue'
+import { useRoute } from 'vue-router'
 
-const router = useRouter()
+const route = useRoute()
 const blogStore = useBlogStore()
 
-blogStore.fetchBlogs()
-
-const viewMore = (id: number) => {
-  router.push(`/blogs/${id}`)
-}
+blogStore.fetchSingleBlog(route.params.id)
+const { blog } = storeToRefs(blogStore)
 </script>
 
 <template>
-  <div class="px-20 flex flex-wrap justify-center gap-8">
-    <div class="max-w-[25.5rem]" v-for="blog in blogStore.getBlogs" :key="blog.id">
-      <div class="mb-6 h-[20.5rem] overflow-hidden rounded-xl">
+  <div class="bg-page-color min-h-screen pt-10 flex flex-col items-center">
+    <div class="w-[45rem] flex flex-col gap-10" v-if="blog">
+      <div class="h-[20.5rem] overflow-hidden rounded-xl">
         <img :src="blog.image" :alt="blog.title" class="w-full h-full object-cover" />
       </div>
-      <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-6">
         <div>
           <h4 class="text-primary text-base font-medium mb-2">{{ blog.author }}</h4>
           <p class="text-secondary text-sm">{{ blog.publish_date }}</p>
         </div>
-        <h3 class="text-primary text-xl font-medium line-clamp-2 h-14">{{ blog.title }}</h3>
+        <h3 class="text-primary text-xl font-medium">{{ blog.title }}</h3>
         <ul class="flex flex-wrap place-items-start w-full gap-3">
           <li
             v-for="category in blog.categories"
@@ -38,12 +35,8 @@ const viewMore = (id: number) => {
             {{ category.title }}
           </li>
         </ul>
-        <p class="text-[#404049] text-base line-clamp-2">{{ blog.description }}</p>
-        <div class="flex cursor-pointer" @click="viewMore(blog.id)">
-          <h4 class="text-[#5D37F3] text-sm font-medium">სრულად ნახვა</h4>
-          <IconArrowUpRight />
-        </div>
       </div>
+      <p class="text-[#404049] text-base">{{ blog.description }}</p>
     </div>
   </div>
 </template>
