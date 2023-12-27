@@ -5,6 +5,7 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import FormLayout from '@/layouts/FormLayout.vue'
 import CreateBlogView from '@/views/CreateBlogView.vue'
 import BlogVIew from '@/views/BlogVIew.vue'
+import isAuthenticated from './guards'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,7 +23,8 @@ const router = createRouter({
         {
           path: '/blogs/:id',
           name: 'blog',
-          component: BlogVIew
+          component: BlogVIew,
+          beforeEnter: isAuthenticated
         }
       ]
     },
@@ -30,6 +32,7 @@ const router = createRouter({
       path: '/form',
       name: 'formLayout',
       component: FormLayout,
+      beforeEnter: isAuthenticated,
       children: [
         {
           path: '/form/createBlog',
