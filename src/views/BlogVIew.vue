@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue'
-import BlogFull from '@/components/blog/BlogFull.vue'
+import BlogInfo from '@/components/blog/BlogInfo.vue'
+import BlogCarousel from '@/components/blog/BlogCarousel.vue'
 
 const router = useRouter()
 </script>
@@ -12,6 +13,6 @@ const router = useRouter()
       class="absolute left-[4.75rem] top-10 cursor-pointer"
       @click="router.push('/')"
     />
-    <BlogFull />
+    <BlogInfo />
   </div>
 </template>

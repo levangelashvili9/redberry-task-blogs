@@ -12,5 +12,7 @@ const { blog } = storeToRefs(blogStore)
 </script>
 
 <template>
-  <BlogCard v-if="blog" :blog="blog" full />
+  <div class="mb-24">
+    <BlogCard v-if="blog" :blog="blog" full />
+  </div>
 </template>
