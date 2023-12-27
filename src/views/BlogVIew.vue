@@ -8,11 +8,14 @@ const router = useRouter()
 </script>
 
 <template>
-  <div class="bg-page-color min-h-screen pt-10 pb-20 flex flex-col items-center relative">
+  <div
+    class="bg-page-color min-h-screen pt-10 pb-20 px-[4.75rem] flex flex-col items-center relative"
+  >
     <IconArrowLeft
       class="absolute left-[4.75rem] top-10 cursor-pointer"
       @click="router.push('/')"
     />
     <BlogInfo />
+    <BlogCarousel />
   </div>
 </template>
