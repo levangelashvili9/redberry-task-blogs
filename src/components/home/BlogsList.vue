@@ -1,49 +1,14 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+import BlogCard from '@/components/shared/BlogCard.vue'
 import { useBlogStore } from '@/stores/blog'
-import IconArrowUpRight from '../icons/IconArrowUpRight.vue'
 
-const router = useRouter()
 const blogStore = useBlogStore()
 
 blogStore.fetchBlogs()
-
-const viewMore = (id: number) => {
-  router.push(`/blogs/${id}`)
-}
 </script>
 
 <template>
-  <div class="px-20 flex flex-wrap justify-center gap-8">
-    <div class="max-w-[25.5rem]" v-for="blog in blogStore.getBlogs" :key="blog.id">
-      <div class="mb-6 h-[20.5rem] overflow-hidden rounded-xl">
-        <img :src="blog.image" :alt="blog.title" class="w-full h-full object-cover" />
-      </div>
-      <div class="flex flex-col gap-4">
-        <div>
-          <h4 class="text-primary text-base font-medium mb-2">{{ blog.author }}</h4>
-          <p class="text-secondary text-sm">{{ blog.publish_date }}</p>
-        </div>
-        <h3 class="text-primary text-xl font-medium line-clamp-2 h-14">{{ blog.title }}</h3>
-        <ul class="flex flex-wrap place-items-start w-full gap-3">
-          <li
-            v-for="category in blog.categories"
-            :key="category.id"
-            class="w-fit rounded-[1.875rem] h-7 p-3 text-xs font-medium flex justify-center items-center cursor-pointer truncate hover:opacity-70"
-            :style="{
-              backgroundColor: category.background_color,
-              color: category.text_color
-            }"
-          >
-            {{ category.title }}
-          </li>
-        </ul>
-        <p class="text-[#404049] text-base line-clamp-2">{{ blog.description }}</p>
-        <div class="flex cursor-pointer" @click="viewMore(blog.id)">
-          <h4 class="text-[#5D37F3] text-sm font-medium">სრულად ნახვა</h4>
-          <IconArrowUpRight />
-        </div>
-      </div>
-    </div>
+  <div class="px-20 flex flex-wrap justify-start gap-x-8 gap-y-14">
+    <BlogCard v-for="blog in blogStore.getBlogs" :key="blog.id" :blog="blog" />
   </div>
 </template>
