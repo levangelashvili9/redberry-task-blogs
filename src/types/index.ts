@@ -13,4 +13,5 @@ export type IBlog = {
   publish_date: string
   categories: ICategory[]
   author: string
+  email?: string
 }
