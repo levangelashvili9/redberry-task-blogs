@@ -18,7 +18,7 @@ defineProps<IProps>()
 </script>
 
 <template>
-  <div :class="[full ? 'max-w-[45rem]' : 'max-w-[25.5rem]']">
+  <div :class="[full ? 'w-[45rem]' : 'w-[25.5rem]']">
     <div class="h-[20.5rem] overflow-hidden rounded-xl" :class="[full ? 'mb-10' : 'mb-6']">
       <img :src="blog.image" :alt="blog.title" class="w-full h-full object-cover" />
     </div>
