@@ -1,6 +1,4 @@
-<script setup lang="ts">
-// import BaseSkeleton from '../ui/BaseSkeleton.vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="bg-page-color w-full min-h-screen pt-10 pb-20 px-[4.75rem] relative">
