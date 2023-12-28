@@ -7,6 +7,7 @@ const useCarousel = (carousel: any) => {
 
   const visibleCarouselWidth = ref(0)
   const position = ref(0)
+  const disabledNext = ref(false)
 
   watch(
     () => blogStore.similarBlogs,
@@ -26,6 +27,7 @@ const useCarousel = (carousel: any) => {
     } else {
       position.value = 0
     }
+    disabledNext.value = false
   }
 
   const nextSlide = () => {
@@ -33,6 +35,7 @@ const useCarousel = (carousel: any) => {
       position.value -= 440
     } else {
       position.value = -availableSpace.value
+      disabledNext.value = true
     }
   }
 
@@ -46,7 +49,7 @@ const useCarousel = (carousel: any) => {
   })
   onUnmounted(() => window.removeEventListener('resize', handler))
 
-  return { position, prevSlide, nextSlide }
+  return { position, prevSlide, nextSlide, disabledNext }
 }
 
 export default useCarousel
