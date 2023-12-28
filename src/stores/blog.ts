@@ -53,12 +53,3 @@ export const useBlogStore = defineStore({
     }
   }
 })
-
-// getSimilarBlogs(state) {
-//   const similarBlogs = state.blogsList.filter((similarBlog) =>
-//     similarBlog.categories.some(
-//       (similarCategory) =>
-//         state.blog?.categories.some((category) => category.title === similarCategory.title)
-//     )
-//   )
-//   return similarBlogs
