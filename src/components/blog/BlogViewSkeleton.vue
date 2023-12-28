@@ -3,8 +3,9 @@
 </script>
 
 <template>
-  <div class="bg-page-color w-full min-h-screen pt-10 pb-20 px-[4.75rem]">
+  <div class="bg-page-color w-full min-h-screen pt-10 pb-20 px-[4.75rem] relative">
     <div role="status" class="animate-pulse">
+      <div class="absolute w-11 h-11 left-[4.75rem] top-10 rounded-full bg-slate-400"></div>
       <div class="w-full flex justify-center">
         <div class="w-[45rem] h-[52.5rem] bg-gray-300 mb-24 rounded-xl">
           <div class="h-[20.5rem] bg-slate-400 rounded-xl mb-10"></div>
