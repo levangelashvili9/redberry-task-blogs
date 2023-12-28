@@ -12,6 +12,8 @@ const router = useRouter()
     class="bg-page-color min-h-screen pt-10 pb-20 px-[4.75rem] flex flex-col items-center relative"
   >
     <IconArrowLeft
+      background="white"
+      stroke="#1A1A1F"
       class="absolute left-[4.75rem] top-10 cursor-pointer"
       @click="router.push('/')"
     />
