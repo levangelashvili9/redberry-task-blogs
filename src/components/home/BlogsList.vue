@@ -9,6 +9,6 @@ blogStore.fetchBlogs()
 
 <template>
   <div class="px-20 flex flex-wrap justify-start gap-x-8 gap-y-14">
-    <BlogCard v-for="blog in blogStore.getBlogs" :key="blog.id" :blog="blog" />
+    <BlogCard v-for="blog in blogStore.blogs" :key="blog.id" :blog="blog" />
   </div>
 </template>

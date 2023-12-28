@@ -16,11 +16,19 @@ export const useBlogStore = defineStore({
     blog: undefined
   }),
   getters: {
-    getBlogs(state) {
+    blogs(state) {
       const filtersStore = useFiltersStore()
       return state.blogsList.filter((blog) =>
         filtersStore.filters.every((filter) =>
           blog.categories.some((category) => category.title === filter)
+        )
+      )
+    },
+    similarBlogs(state) {
+      return state.blogsList.filter((similarBlog) =>
+        similarBlog.categories.some(
+          (similarCategory) =>
+            state.blog?.categories.some((category) => category.title === similarCategory.title)
         )
       )
     }
@@ -45,3 +53,12 @@ export const useBlogStore = defineStore({
     }
   }
 })
+
+// getSimilarBlogs(state) {
+//   const similarBlogs = state.blogsList.filter((similarBlog) =>
+//     similarBlog.categories.some(
+//       (similarCategory) =>
+//         state.blog?.categories.some((category) => category.title === similarCategory.title)
+//     )
+//   )
+//   return similarBlogs
