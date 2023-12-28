@@ -5,7 +5,7 @@ import BlogCard from '@/components/shared/BlogCard.vue'
 
 const blogStore = useBlogStore()
 
-blogStore.fetchSingleBlog()
+await blogStore.fetchSingleBlog()
 const { blog } = storeToRefs(blogStore)
 </script>
 
