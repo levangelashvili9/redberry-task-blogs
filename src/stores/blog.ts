@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import axiosInstance from '@/plugins/axios'
 import { useFiltersStore } from './filters'
 import type { IBlog } from '@/types'
+import { useRoute } from 'vue-router'
 
 type State = {
   blogsList: IBlog[]
@@ -33,9 +34,10 @@ export const useBlogStore = defineStore({
         return
       }
     },
-    async fetchSingleBlog(payload: string | string[]) {
+    async fetchSingleBlog() {
+      const route = useRoute()
       try {
-        const res = await axiosInstance.get(`/blogs/${payload}`)
+        const res = await axiosInstance.get(`/blogs/${route.params.id}`)
         this.blog = res.data
       } catch (err) {
         return
