@@ -11,7 +11,7 @@ blogStore.fetchBlogs()
 
 <template>
   <BaseCarousel>
-    <div v-for="blog in blogStore.blogsList" :key="blog.id">
+    <div v-for="blog in blogStore.similarBlogs" :key="blog.id">
       <BlogCard :blog="blog" />
     </div>
   </BaseCarousel>

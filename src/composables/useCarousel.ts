@@ -1,12 +1,23 @@
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
+import { useBlogStore } from '@/stores/blog'
 
-const useCarousel = (carousel: any, blogsLength: number) => {
+const useCarousel = (carousel: any) => {
+  const blogStore = useBlogStore()
+  const blogsLength = ref(blogStore.similarBlogs.length)
+
   const visibleCarouselWidth = ref(0)
-  const fullCarouselWidth = ref(blogsLength * 440)
   const position = ref(0)
 
+  watch(
+    () => blogStore.similarBlogs,
+    () => {
+      blogsLength.value = blogStore.similarBlogs.length
+    }
+  )
+
   const availableSpace = computed(() => {
-    return fullCarouselWidth.value - visibleCarouselWidth.value
+    const available = blogsLength.value * 440 - visibleCarouselWidth.value // full carousel width - visible width = available space for sliding
+    return available > 0 ? available : 0 // return available space if its greater than 0, otherwise, return 0
   })
 
   const prevSlide = () => {

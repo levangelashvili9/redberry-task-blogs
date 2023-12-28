@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import useCarousel from '@/composables/useCarousel'
 
 const carousel = ref(null)
-const { position, prevSlide, nextSlide } = useCarousel(carousel, 6)
+const { position, prevSlide, nextSlide } = useCarousel(carousel)
 </script>
 
 <template>
