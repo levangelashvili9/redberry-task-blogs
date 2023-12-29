@@ -15,6 +15,7 @@ const useDropdown = (categories: ICategory[], value: any) => {
     } else {
       currentCategories.value.push(category)
     }
+
     value.value = currentCategories.value
   }
 

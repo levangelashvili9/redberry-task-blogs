@@ -32,10 +32,7 @@ const chosenCategories = computed(() => {
 
 <template>
   <div class="h-[4.5rem] flex flex-col justify-between">
-    <p
-      class="text-primary font-medium text-sm"
-      @click="console.log(chosenCategories, currentCategories)"
-    >
+    <p class="text-primary font-medium text-sm">
       {{ label }}
     </p>
     <div
