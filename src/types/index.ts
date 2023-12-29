@@ -15,3 +15,12 @@ export type IBlog = {
   author: string
   email?: string
 }
+
+export type IBlogForm = {
+  image: string
+  author: string
+  title: string
+  description: string
+  publish_date: string
+  email: string
+}
