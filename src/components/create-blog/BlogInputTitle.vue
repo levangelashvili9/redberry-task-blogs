@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { useFormStore } from '@/stores/form'
 import { useField } from 'vee-validate'
+import { onMounted, watch } from 'vue'
 
 type IProps = {
   name: string
@@ -9,7 +11,16 @@ type IProps = {
 
 const props = defineProps<IProps>()
 
-const { value, errors, meta, handleChange } = useField(() => props.name)
+const { value, errors, meta, handleChange, setValue } = useField(() => props.name)
+const formStore = useFormStore()
+
+watch(value, (newValue) => {
+  formStore.saveFormState({ ...formStore.formValues, title: newValue })
+})
+
+onMounted(() => {
+  setValue(formStore.formValues.title)
+})
 </script>
 
 <template>

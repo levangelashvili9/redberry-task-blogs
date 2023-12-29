@@ -17,11 +17,11 @@ export type IBlog = {
 }
 
 export type IBlogForm = {
-  image: string
-  author: string
-  title: string
-  description: string
-  publish_date: string
-  categories: string[]
-  email: string
+  image?: string
+  author?: string
+  title?: string
+  description?: string
+  publish_date?: string
+  categories?: number[]
+  email?: string
 }

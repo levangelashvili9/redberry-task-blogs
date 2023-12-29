@@ -1,45 +1,53 @@
 <script setup lang="ts">
 import IconFileUpload from '@/components/icons/IconFileUpload.vue'
 import { useField } from 'vee-validate'
-import { ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import IconCross from '@/components/icons/IconCross.vue'
 import IconImage from '@/components/icons/IconImage.vue'
+import { useFormStore } from '@/stores/form'
 
 const active = ref(false)
-const dropZoneFile = ref<any>(null)
 
 const toggleActive = () => {
   active.value = !active.value
 }
 
-const onFileSelect = () => {
+const onFileSelect = async () => {
   //@ts-ignore
-  dropZoneFile.value = document.querySelector('#image').files[0]
-  value.value = dropZoneFile.value
+  setValue(document.querySelector('#image').files[0])
 }
 
-const onDrop = (event: any) => {
-  dropZoneFile.value = event.dataTransfer.files[0]
-  value.value = dropZoneFile.value
+const onDrop = async (event: any) => {
+  setValue(event.dataTransfer.files[0])
 }
 
 const handleDelete = () => {
-  dropZoneFile.value = null
-  value.value = null
+  setValue(null)
 }
 
-const { value } = useField(() => 'image')
+const { value, setValue } = useField(() => 'image')
+
+const formStore = useFormStore()
+
+watch(value, (newValue) => {
+  formStore.saveFormState({ ...formStore.formValues, image: newValue })
+  console.log(formStore.formValues)
+})
+
+onMounted(() => {
+  setValue(formStore.formValues.image)
+})
 </script>
 
 <template>
   <div>
     <span class="text-primary font-medium text-sm">ატვირთეთ ფოტო</span>
     <div
-      v-if="dropZoneFile"
+      v-if="value"
       class="w-full h-14 flex items-center bg-[#F2F2FA] mt-[0.375rem] px-4 rounded-xl relative"
     >
       <IconImage class="mr-2" />
-      <p>{{ dropZoneFile?.name }}</p>
+      <p>{{ value.name }}</p>
       <IconCross class="absolute right-2 top-[50%-25%] cursor-pointer" @click="handleDelete" />
     </div>
     <label

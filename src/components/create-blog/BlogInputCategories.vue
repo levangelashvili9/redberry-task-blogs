@@ -5,7 +5,8 @@ import type { ICategory } from '@/types'
 import IconCross from '@/components/icons/IconCross.vue'
 import BaseCategory from '@/components/ui/BaseCategory.vue'
 import useDropDown from '@/composables/useDropdown'
-import { computed } from 'vue'
+import { computed, onMounted, watch } from 'vue'
+import { useFormStore } from '@/stores/form'
 
 type IProps = {
   name: string
@@ -15,18 +16,34 @@ type IProps = {
 
 const props = defineProps<IProps>()
 
-const { value, meta } = useField(() => props.name)
+const formStore = useFormStore()
 
-const { isOpen, toggleIsOpen, addCategory, currentCategories } = useDropDown(
-  props.categories,
-  value
-)
+const { value, meta, setValue } = useField<number[] | undefined>(() => props.name)
+
+const { isOpen, toggleIsOpen } = useDropDown()
+
+const addCategory = (id: number) => {
+  if (value.value && value.value.includes(id)) {
+    value.value = value.value.filter((category) => category !== id)
+  } else {
+    value.value?.push(id)
+  }
+}
 
 const chosenCategories = computed(() => {
-  const filtered = props.categories.filter((category) =>
-    currentCategories.value.some((currentCategory) => category.title === currentCategory)
+  const filtered = props.categories.filter(
+    (category) => value.value?.some((currentCategory) => category.id === currentCategory)
   )
+
   return filtered
+})
+
+watch(value, (newValue) => {
+  formStore.saveFormState({ ...formStore.formValues, categories: newValue })
+})
+
+onMounted(() => {
+  setValue(formStore.formValues.categories)
 })
 </script>
 
@@ -46,7 +63,7 @@ const chosenCategories = computed(() => {
       <div class="flex gap-2 w-[90%] overflow-hidden">
         <BaseCategory
           @click.stop
-          @click="addCategory(category.title)"
+          @click="addCategory(category.id)"
           v-for="category in chosenCategories"
           :key="category.id"
           :category="category"
@@ -61,11 +78,11 @@ const chosenCategories = computed(() => {
         class="absolute bottom-[-320px] left-0 w-full p-4 bg-slate-200 rounded-xl flex justify-center flex-wrap place-items-start gap-1"
       >
         <BaseCategory
-          @click="addCategory(category.title)"
+          @click="addCategory(category.id)"
           v-for="category in categories"
           :key="category.id"
           :category="category"
-          :class="{ 'border-black': currentCategories.includes(category.title) }"
+          :class="{ 'border-black': value?.includes(category.id) }"
         />
       </div>
     </div>

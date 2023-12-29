@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useField } from 'vee-validate'
 import IconError from '@/components/icons/IconError.vue'
+import { useFormStore } from '@/stores/form'
+import { onMounted, watch } from 'vue'
 
 type IProps = {
   name: string
@@ -10,12 +12,27 @@ type IProps = {
 
 const props = defineProps<IProps>()
 
-const { value, errors, meta, handleChange } = useField(() => props.name)
+const { value, errors, meta, handleChange, setValue } = useField(() => props.name)
+
+const formStore = useFormStore()
+
+watch(value, (newValue) => {
+  formStore.saveFormState({ ...formStore.formValues, email: newValue })
+})
+
+onMounted(() => {
+  setValue(formStore.formValues.email)
+})
 </script>
 
 <template>
   <div class="w-[18rem]">
-    <label :for="name" class="text-primary font-medium text-sm">{{ label }}</label>
+    <label
+      :for="name"
+      class="text-primary font-medium text-sm"
+      @click="console.log(meta.valid, meta.dirty)"
+      >{{ label }}</label
+    >
     <input
       v-model="value"
       :name="name"

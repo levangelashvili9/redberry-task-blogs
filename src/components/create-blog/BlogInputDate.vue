@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { useFormStore } from '@/stores/form'
 import { useField } from 'vee-validate'
+import { onMounted } from 'vue'
 
 type IProps = {
   name: string
@@ -8,7 +10,13 @@ type IProps = {
 
 const props = defineProps<IProps>()
 
-const { value, meta, handleChange } = useField(() => props.name)
+const { value, meta, handleChange, setValue } = useField(() => props.name)
+
+const formStore = useFormStore()
+
+onMounted(() => {
+  setValue(formStore.formValues.publish_date)
+})
 </script>
 
 <template>
