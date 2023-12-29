@@ -25,13 +25,12 @@ const handleDelete = () => {
   setValue(null)
 }
 
-const { value, setValue } = useField(() => 'image')
+const { value, setValue } = useField<any>(() => 'image')
 
 const formStore = useFormStore()
 
 watch(value, (newValue) => {
   formStore.saveFormState({ ...formStore.formValues, image: newValue })
-  console.log(formStore.formValues)
 })
 
 onMounted(() => {

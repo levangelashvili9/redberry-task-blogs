@@ -23,6 +23,10 @@ const { value, meta, setValue } = useField<number[] | undefined>(() => props.nam
 const { isOpen, toggleIsOpen } = useDropDown()
 
 const addCategory = (id: number) => {
+  if (value.value === undefined) {
+    value.value = []
+  }
+
   if (value.value && value.value.includes(id)) {
     value.value = value.value.filter((category) => category !== id)
   } else {

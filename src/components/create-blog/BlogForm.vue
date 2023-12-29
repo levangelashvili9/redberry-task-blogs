@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useForm, useFormValues } from 'vee-validate'
+import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
+import { ref } from 'vue'
 
 import type { IBlogForm } from '@/types'
 import { blogFormValidations } from '@/validations/blogFormValidations'
@@ -15,17 +16,23 @@ import BlogInputDate from './BlogInputDate.vue'
 import BlogInputCategories from './BlogInputCategories.vue'
 import BlogInputEmail from './BlogInputEmail.vue'
 import axiosInstance from '@/plugins/axios'
+import SuccessDialog from '../shared/SuccessDialog.vue'
+import BaseModal from '../ui/BaseModal.vue'
+import { useRouter } from 'vue-router'
+import useModal from '@/composables/useModal'
 
 const { handleSubmit, meta } = useForm<IBlogForm>({
   validationSchema: toTypedSchema(blogFormValidations)
 })
 
 const { categories } = useFetchCategories()
-const formValues = useFormValues()
+const router = useRouter()
+const { isModalActive, openModal, closeModal } = useModal()
 
-const onSubmit = handleSubmit((values, { resetForm }) => {
-  console.log(values)
-  axiosInstance.post('/blogs', values)
+const onSubmit = handleSubmit(async (values, { resetForm }) => {
+  const res = await axiosInstance.post('/blogs', values)
+  openModal()
+  console.log(res)
   resetForm()
 })
 </script>
@@ -34,7 +41,6 @@ const onSubmit = handleSubmit((values, { resetForm }) => {
   <form @submit="onSubmit">
     <div class="mb-10 flex flex-col gap-6">
       <BlogInputImage />
-      <p @click="console.log(formValues)">bla</p>
       <div class="grid grid-cols-2 gap-6">
         <BlogInputAuthor name="author" label="ავტორი *" placeholder="შეიყვანეთ ავტორი" />
         <BlogInputTitle name="title" label="სათაური *" placeholder="შეიყვანეთ სათაური" />
@@ -51,5 +57,12 @@ const onSubmit = handleSubmit((values, { resetForm }) => {
         <BaseButton variant="primary" :disabled="!meta.valid">Submit</BaseButton>
       </div>
     </div>
+    <BaseModal :isModalActive="isModalActive" @close-modal="closeModal">
+      <SuccessDialog
+        buttonMessage="მთავარ გვერდზე დაბრუნება"
+        @click="router.push('/')"
+        @close-modal="closeModal"
+      />
+    </BaseModal>
   </form>
 </template>
