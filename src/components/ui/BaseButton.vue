@@ -19,7 +19,7 @@ const buttonClass = computed(() => {
           secondary: 'px-5'
         },
         disabled: {
-          true: '!bg-gray-100 !text-gray-400 cursor-not-allowed'
+          true: '!bg-[#E4E3EB] !text-white cursor-not-allowed'
         }
       }
     }
