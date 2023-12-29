@@ -60,7 +60,7 @@ const emailOrSubmitError = computed(() => {
         <div class="mt-1 h-5">
           <div v-show="emailOrSubmitError" class="flex gap-1 items-center">
             <IconError />
-            <p class="text-error-message text-xs">{{ emailOrSubmitError }}</p>
+            <p class="text-error-color text-xs">{{ emailOrSubmitError }}</p>
           </div>
         </div>
       </div>
