@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useField } from 'vee-validate'
-import { computed, ref } from 'vue'
 import IconArrowDown from '@/components/icons/IconArrowDown.vue'
 import type { ICategory } from '@/types'
-import IconCross from '../icons/IconCross.vue'
-import BaseCategory from '../ui/BaseCategory.vue'
+import IconCross from '@/components/icons/IconCross.vue'
+import BaseCategory from '@/components/ui/BaseCategory.vue'
+import useDropDown from '@/composables/useDropdown'
+import { computed } from 'vue'
 
 type IProps = {
   name: string
@@ -14,35 +15,29 @@ type IProps = {
 
 const props = defineProps<IProps>()
 
-const isOpen = ref(false)
-const array = ref<string[]>([])
+const { value, meta } = useField(() => props.name)
 
-const toggleIsOpen = () => {
-  isOpen.value = !isOpen.value
-}
-
-const addCategory = (category: string) => {
-  if (array.value.includes(category)) {
-    array.value = array.value.filter((filter) => filter !== category)
-  } else {
-    array.value.push(category)
-  }
-  value.value = array.value
-}
+const { isOpen, toggleIsOpen, addCategory, currentCategories } = useDropDown(
+  props.categories,
+  value
+)
 
 const chosenCategories = computed(() => {
   const filtered = props.categories.filter((category) =>
-    array.value.some((el) => category.title === el)
+    currentCategories.value.some((currentCategory) => category.title === currentCategory)
   )
   return filtered
 })
-
-const { value, meta } = useField(() => props.name)
 </script>
 
 <template>
   <div class="h-[4.5rem] flex flex-col justify-between">
-    <p class="text-primary font-medium text-sm">{{ label }}</p>
+    <p
+      class="text-primary font-medium text-sm"
+      @click="console.log(chosenCategories, currentCategories)"
+    >
+      {{ label }}
+    </p>
     <div
       @click="toggleIsOpen"
       class="w-full h-11 px-3 flex justify-between items-center border-2 border-border-inactive rounded-xl cursor-pointer relative focus:outline-focus-color"
@@ -73,7 +68,7 @@ const { value, meta } = useField(() => props.name)
           v-for="category in categories"
           :key="category.id"
           :category="category"
-          :class="{ 'border-black': array.includes(category.title) }"
+          :class="{ 'border-black': currentCategories.includes(category.title) }"
         />
       </div>
     </div>
