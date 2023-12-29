@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
-import { ref } from 'vue'
 
 import type { IBlogForm } from '@/types'
 import { blogFormValidations } from '@/validations/blogFormValidations'

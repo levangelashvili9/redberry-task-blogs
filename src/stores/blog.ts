@@ -18,11 +18,12 @@ export const useBlogStore = defineStore({
   getters: {
     blogs(state) {
       const filtersStore = useFiltersStore()
-      return state.blogsList.filter((blog) =>
+      const filteredByCategories = state.blogsList.filter((blog) =>
         filtersStore.filters.every((filter) =>
           blog.categories.some((category) => category.title === filter)
         )
       )
+      return filteredByCategories.filter((blog) => new Date(blog.publish_date) <= new Date())
     },
     similarBlogs(state) {
       return state.blogsList.filter((similarBlog) =>
