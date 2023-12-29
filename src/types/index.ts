@@ -22,5 +22,6 @@ export type IBlogForm = {
   title: string
   description: string
   publish_date: string
+  categories: string[]
   email: string
 }

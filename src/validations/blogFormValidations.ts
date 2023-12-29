@@ -17,8 +17,10 @@ export const blogFormValidations = z.object({
     ),
   title: z.string().min(4, { message: 'მინიმუმ 4 სიმბოლო' }),
   description: z.string().min(2, { message: 'მინიმუმ 2 სიმბოლო' }),
-  publish_date: z.string(),
-  categories: z.array(z.string()),
+  publish_date: z.string().refine((value) => value),
+  categories: z.array(z.string()).refine((categories) => categories.length > 0, {
+    message: 'გთხოვთ, აირჩიეთ კატეგორია'
+  }),
   email: z
     .string()
     .endsWith('@redberry.ge', { message: 'მეილი უნდა მთავრდებოდეს @redberry.ge-ით' })
